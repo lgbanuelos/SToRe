@@ -42,14 +42,15 @@ def f(invector):
     subsin = np.subtract( imarking, newmarking)
     maxs = np.fmax(subsin, zeros)
 
-    c    = np.sum( np.array(maxs) )
     m    = np.sum(preset) * (1 - np.sum(selector))
+    c    = np.sum( np.array(maxs) ) + m
 
     subsni = np.subtract( newmarking, imarking)
     maxsni = np.fmax(subsni, zeros)
     p      = np.sum( np.array(maxsni) ) - m
 
-    return newmarking, c, m, p
+    # return newmarking, subsin, maxs, c, m, p
+    return newmarking, imarking, newmarking, subsin, zeros, maxs, c
 
 invector_sample = np.random.choice(2, size=(100,19))
 circuit = f.compile(invector_sample)
