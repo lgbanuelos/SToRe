@@ -1,6 +1,9 @@
 # Please check the requirements in the documentation (python version, testing on 3.10)
 import json
 import numpy as np
+import time
+
+init_time = time.time()
 
 net = json.load(open("data/running-example.json"))
 
@@ -63,3 +66,6 @@ for label in [
     imarking = newmarking.transpose().tolist()[0]
 
 print(imarking)
+
+end_time = time.time()
+print("Execution time: ", end_time - init_time)

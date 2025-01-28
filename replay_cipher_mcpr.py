@@ -2,6 +2,9 @@ import json
 import numpy as np
 import numpy as np
 from   concrete import fhe
+import time
+
+init_time = time.time()
 
 net = json.load(open("data/running-example.json"))
 
@@ -92,3 +95,7 @@ for label in [
     print("new marking: ", imarking)
     print("m:", m, " c:", c , " p:", p, " r:", r)
     print("==================================================")
+
+
+end_time = time.time()
+print("Execution time: ", end_time - init_time)
