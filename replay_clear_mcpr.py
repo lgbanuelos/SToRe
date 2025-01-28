@@ -60,6 +60,61 @@ for label in [
     newmarking = imarking.transpose() + np.matmul(matrix, npvector.transpose())
     print("selector: ", selector.transpose(), summation, imarking)
 
+    #Computing c, m, p, r
+    
+    # print("-------------------- m")
+    m    = preset.sum() * (1 - selector.sum())
+
+    # print("preset: ", preset)
+    # print("m: ", m)
+
+    # print("-------------------- c")
+    zeros = np.zeros(imarking.shape, dtype="int")
+    subsin = imarking_o - newmarking.transpose()
+    maxs = np.fmax(subsin, zeros)
+    c    = np.sum( np.array(maxs) ) + m
+
+    # print("imarking   : ", imarking_o)
+    # print("newmarking : ", newmarking.transpose())
+    # print("subs i-n     : ", subsin)
+    # print("zeros        : ", zeros)
+    # print("maxs (i-n, 0): ", maxs)
+    # print("c: ", c)
+    # print("-------------------- p")
+
+    subsni = newmarking.transpose() - imarking_o
+    maxsni =  np.fmax(subsni, zeros)
+    p    = np.sum( np.array(maxsni) ) - m
+
+    # print("subs n-i     : ", subsni)
+    # print("maxs (n-i, 0): ", maxsni)
+    # print("p: ", p)
+
+    # print("-------------------- r")
+    subsnf = np.subtract(newmarking.transpose(), fmarking)
+    sumsnf = np.sum(subsnf)
+    unos = np.ones(imarking.shape, dtype="int")
+    minnon = np.fmin(np.array(newmarking.transpose()), np.array(unos))
+    fxmon  = np.multiply( fmarking, minnon )
+    sumf   = np.sum(fmarking)
+    divr   = fxmon // sumf
+    sums   = np.sum(divr)
+    r      = sumsnf * sums
+
+    # print("newmarking: ", newmarking.transpose())
+    # print("unos: ", unos)
+    # print("subsnf: ", subsnf)
+    # print("sumsnf: ", subsnf)
+    # print("minnon: ", minnon)
+    # print("fxmon: ", minnon)
+    # print("sumf: ", sumf)
+    # print("divr: ", divr)
+    # print("sums: ", sums)
+    # print("r: ", r)
+
+    print("m:", m, " c:", c , " p:", p, " r:", r)
+    print("==================================================")
+
     imarking = newmarking.transpose().tolist()[0]
 
 print(imarking)
