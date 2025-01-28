@@ -39,6 +39,7 @@ for label in [
 
     req = np.transpose(np.matrix(imarking + parikh_vector))
 
+
     selector  = np.matmul(enablements, req) // divisors
     npvector = None
     if (selector.sum() == 1):
@@ -64,6 +65,9 @@ print(imarking)
 # %%
 @fhe.compiler({"invector": "encrypted"})
 def f(invector):
+
+    invector = np.fmin(invector, np.ones(len(invector), dtype=int))
+
     selector = np.matmul(enablements, invector) // divisors.transpose()
     parikhv = np.zeros(pvectors.shape[1], dtype="int")
     for row, value in zip(pvectors, selector[0]):
