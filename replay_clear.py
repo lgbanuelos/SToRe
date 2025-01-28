@@ -1,20 +1,15 @@
-# %%
-# BEWARE: The package "concrete" does not support the newest versions of Python
-# Please check the requirements in the documentation 
+# Please check the requirements in the documentation (python version, testing on 3.10)
 import json
 import numpy as np
-from   concrete import fhe
 
 net = json.load(open("data/running-example.json"))
 
-# %%
 mapping = {}
 for n, label in net["transitons"].items():
     if label != '':
         mapping[label] = int(n)
 mapping
 
-# %%
 matrix = np.matrix(net["matrix"])
 enablements = np.matrix(net["enablements"])
 pvectors = np.matrix(net["parikh_vectors"])
@@ -56,7 +51,7 @@ for label in [
         imarking = np.matrix(imarking)
     else:
         print("Need to insert tokens")
-        # preset = np.matrix([0] * len(imarking))
+        # preset = np.matrix([0] * len(imarking)) ** moved outside the if
         for row,value in zip(presets, req[9:]):
             preset = preset + row[0] * value.item(0,0)
         imarking = imarking + preset
@@ -79,12 +74,12 @@ for label in [
     maxs = np.fmax(subsin, zeros)
     c    = np.sum( np.array(maxs) ) + m
 
-    print("imarking   : ", imarking_o)
-    print("newmarking : ", newmarking.transpose())
-    print("subs i-n     : ", subsin)
-    print("zeros        : ", zeros)
-    print("maxs (i-n, 0): ", maxs)
-    print("c: ", c)
+    # print("imarking   : ", imarking_o)
+    # print("newmarking : ", newmarking.transpose())
+    # print("subs i-n     : ", subsin)
+    # print("zeros        : ", zeros)
+    # print("maxs (i-n, 0): ", maxs)
+    # print("c: ", c)
     # print("-------------------- p")
 
     subsni = newmarking.transpose() - imarking_o
@@ -117,11 +112,9 @@ for label in [
     # print("sums: ", sums)
     # print("r: ", r)
 
-
-    print("c:", c, " m:", m , " p:", p, " r:", r)
+    print("m:", m, " c:", c , " p:", p, " r:", r)
     print("==================================================")
 
     imarking = newmarking.transpose().tolist()[0]
-    
 
 print(imarking)
