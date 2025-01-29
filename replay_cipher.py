@@ -4,8 +4,6 @@ import numpy as np
 from   concrete import fhe
 import time
 
-init_time = time.time()
-
 net = json.load(open("data/running-example.json"))
 
 mapping = {}
@@ -42,28 +40,33 @@ def f(invector):
 
     return newmarking
 
-invector_sample = np.random.choice(2, size=(100,19))
+invector_sample = np.random.choice(6, size=(100,19))
 circuit = f.compile(invector_sample)
 
 
-imarking = [1] + [0]*8
-print("Initial marking: ", imarking)
-# You can comment out one or several labels to force token adition
-for label in [
-        "register request", 
-        "check ticket", 
-        "examine casually",
-        # "decide",
-        "reject request"]:
-    parikh_vector = [0] * 10
-    parikh_vector[mapping[label]] = 1
 
-    request = imarking + parikh_vector
-    print("request: ", request)
-    imarking = circuit.encrypt_run_decrypt(request)[0].tolist()
-    print("new marking: ", imarking)
-    print("==================================================")
+#######Inicio de tiempos
 
+for index in range(1,7):
+    init_time = time.time()
 
-end_time = time.time()
-print("Execution time: ", end_time - init_time)
+    imarking = [1] + [0]*8
+    print("Initial marking: ", imarking)
+    # You can comment out one or several labels to force token adition
+    for label in [
+            "register request", 
+            "check ticket", 
+            "examine casually",
+            # "decide",
+            "reject request"]:
+        parikh_vector = [0] * 10
+        parikh_vector[mapping[label]] = 1
+    
+        request = imarking + parikh_vector
+        print("request: ", request)
+        imarking = circuit.encrypt_run_decrypt(request)[0].tolist()
+        print("new marking: ", imarking)
+        print("==================================================")
+    
+    end_time = time.time()
+    print(index, "Execution time: ", end_time - init_time)

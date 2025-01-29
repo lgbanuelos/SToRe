@@ -70,32 +70,36 @@ def f(invector):
 
     return newmarking, m, c, p, r
 
-invector_sample = np.random.choice(2, size=(100,19))
+invector_sample = np.random.choice(5, size=(100,19))
 circuit = f.compile(invector_sample)
 
-imarking = [1] + [0]*8
-print("Initial marking: ", imarking)
 
-# You can comment out one or several labels to force token adition
-for label in [
-        "register request", 
-        "check ticket", 
-        "examine casually",
-        # "decide",
-        "reject request"]:
-    parikh_vector = [0] * 10
-    parikh_vector[mapping[label]] = 1
+for index in range(1,7):
+    init_time = time.time()
 
-    request = imarking + parikh_vector
-    print("request: ", request)
-    result = circuit.encrypt_run_decrypt(request)
-    imarking = result[0][0].tolist()
-    m, c, p, r = result[1:]
-    print("result: ", result)
-    print("new marking: ", imarking)
-    print("m:", m, " c:", c , " p:", p, " r:", r)
-    print("==================================================")
-
-
-end_time = time.time()
-print("Execution time: ", end_time - init_time)
+    imarking = [1] + [0]*8
+    print("Initial marking: ", imarking)
+    
+    # You can comment out one or several labels to force token adition
+    for label in [
+            "register request", 
+            "check ticket", 
+            "examine casually",
+            # "decide",
+            "reject request"]:
+        parikh_vector = [0] * 10
+        parikh_vector[mapping[label]] = 1
+    
+        request = imarking + parikh_vector
+        print("request: ", request)
+        result = circuit.encrypt_run_decrypt(request)
+        imarking = result[0][0].tolist()
+        m, c, p, r = result[1:]
+        print("result: ", result)
+        print("new marking: ", imarking)
+        print("m:", m, " c:", c , " p:", p, " r:", r)
+        print("==================================================")
+    
+    
+    end_time = time.time()
+    print(index, "- Execution time: ", end_time - init_time)
