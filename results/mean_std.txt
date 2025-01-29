@@ -1,0 +1,16 @@
+
+ >> $ python3 summary.py 
+mean ==================================================
+cipher_mcpr        168.485813
+cipher               6.268517
+clear                0.003048
+clear_mcpr           0.003939
+dtype: float64
+
+
+std ==================================================
+cipher_mcpr         0.568524
+cipher              0.061643
+clear               0.000006
+clear_mcpr          0.000120
+dtype: float64
