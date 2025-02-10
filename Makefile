@@ -1,43 +1,53 @@
 running_example_dir = data/running_example/
 running_example_broken_dir = data/running_example_broken/
 #=========================================================================== fiting
-run_clear:
+run_CLR:
 	for number in `seq 6` ; do \
-		python3 replay_clear.py ${running_example_dir}/trace_$$number.dat ; \
+		python3 replay_CLR.py ${running_example_dir}/trace_$$number.dat ; \
 	done
 
-run_clear_mcpr:
+run_CLR_plus:
 	for number in `seq 6` ; do \
-		python3 replay_clear_mcpr.py ${running_example_dir}/trace_$$number.dat ; \
+		python3 replay_CLR_plus.py ${running_example_dir}/trace_$$number.dat ; \
 	done
 
-run_cipher:
+run_SEC:
 	for number in `seq 6`; do \
-		python3 replay_cipher.py ${running_example_dir}/trace_$$number.dat ; \
+		python3 replay_SEC.py ${running_example_dir}/trace_$$number.dat ; \
 	done
 
-run_cipher_mcpr:
+run_SEC_plus:
 	for number in `seq 6`; do \
-		python3 replay_cipher_new.py ${running_example_dir}/trace_$$number.dat ; \
+		python3 replay_SEC_plus.py ${running_example_dir}/trace_$$number.dat ; \
 	done
+
+run_SEC_plus_STEP:
+	for number in `seq 6`; do \
+		python3 replay_SEC_plus_STEP.py ${running_example_dir}/trace_$$number.dat ; \
+	done
+
 #=========================================================================== broken
-run_clear_broken:
+run_CLR_broken:
 	for number in `seq 6` ; do \
-		python3 replay_clear.py ${running_example_broken_dir}/trace_$$number.dat ; \
+		python3 replay_CLR.py ${running_example_broken_dir}/trace_$$number.dat ; \
 	done
 
-run_clear_mcpr_broken:
+run_CLR_plus_broken:
 	for number in `seq 6` ; do \
-		python3 replay_clear_mcpr.py ${running_example_broken_dir}/trace_$$number.dat ; \
+		python3 replay_CLR_plus.py ${running_example_broken_dir}/trace_$$number.dat ; \
 	done
 
-run_cipher_broken:
+run_SEC_broken:
 	for number in `seq 6` ; do \
-		python3 replay_cipher.py ${running_example_broken_dir}/trace_$$number.dat ; \
+		python3 replay_SEC.py ${running_example_broken_dir}/trace_$$number.dat ; \
 	done
 
-run_cipher_mcpr_broken:
-	# for number in 1 ; do \
+run_SEC_plus_broken:
 	for number in `seq 6`; do \
-		python3 replay_cipher_new.py ${running_example_broken_dir}/trace_$$number.dat ; \
+		python3 replay_SEC_plus.py ${running_example_broken_dir}/trace_$$number.dat ; \
+	done
+
+run_SEC_plus_STEP_broken:
+	for number in `seq 6`; do \
+		python3 replay_SEC_plus_STEP.py ${running_example_broken_dir}/trace_$$number.dat ; \
 	done

@@ -15,20 +15,20 @@ Replay and Homomorphic Encryption.
 
 There are four variants of the step function implementation:
 
-1. replay_clear.py - Implementation of the Secure Token-based Replay algorithm (without the computation of mcpr tokens).
-2. replay_clear_mcpr.py - Implementation of the Secure Token-based Replay algorithm.
-3. replay_cipher.py - Implementation of the encrypted version of Secure Token-based Replay algorithm without the computation of mcpr token.
-4. replay_cipher_mcpr.py - Implementation of the encrypted version of Secure Token-based Replay algorithm.
+1. replay_CLR.py - Implementation of the Secure Token-based Replay algorithm (without the computation of mcpr tokens).
+2. replay_CLR_plus.py - Implementation of the Secure Token-based Replay algorithm.
+3. replay_SEC.py - Implementation of the encrypted version of Secure Token-based Replay algorithm without the computation of mcpr token.
+4. replay_SEC_plus.py - Implementation of the encrypted version of Secure Token-based Replay algorithm.
 
 (mcpr = missing, produced, consumed, remainder)
 
 The scripts required a input parameter with the path of the file containing the trace to be checked, one per line.
 
 ```
-python3 replay_clear.py data/my_runnin_example.dat
-python3 replay_clear_mcpr.py data/my_runnin_example.dat
-python3 replay_cipher.py data/my_runnin_example.dat
-python3 replay_cipher_mcpr.py data/my_runnin_example.dat
+python3 replay_CLR.py data/my_runnin_example.dat
+python3 replay_CLR_plus.py data/my_runnin_example.dat
+python3 replay_SEC.py data/my_runnin_example.dat
+python3 replay_SEC_plus.py data/my_runnin_example.dat
 ```
 
 Example of the `my_runnign_example.dat` file.
@@ -52,15 +52,15 @@ data/running_example_broken/
 We include a Makefile (tested on ubuntu 22) to help to run the experiments:
 
 ```
-  make run_clear
+  make run_CLR
 ```
 
 ```
-  make run_clear_mcpr
+  make run_CLR_plus
 ```
 ```
-  make run_cipher
+  make run_SEC
 ```
 ```
-  make run_cipher_mcpr
+  make run_SEC_plus
 ```

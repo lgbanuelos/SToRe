@@ -53,10 +53,6 @@ def f(invector):
     m    = np.sum(preset) * (1 - np.sum(selector))
 
 
-    #Computing c, m, p, r
-    #---------------------------------------- m
-    #---------------------------------------- r
-
     return newmarking, m #, c, p, r
 
 file_name = sys.argv[1]
