@@ -6,7 +6,7 @@ import sys
 
 runs = 1
 
-net = json.load(open("data/running-example.json"))
+net = json.load(open("data/BPI_challenge_2012/bpi_challenge_2012.json"))
 
 mapping = {}
 for n, label in net["transitons"].items():
@@ -16,12 +16,18 @@ print(mapping)
 
 matrix = np.matrix(net["matrix"])
 enablements = np.matrix(net["enablements"])
+firing = np.matrix(net["firing"])
 pvectors = np.matrix(net["parikh_vectors"])
 divisors = enablements.sum(axis=1)
 presets = np.matrix(net["presets"])
-presets
 
-# %%
+print("matrix: \n", matrix)
+print("enablements: \n", enablements)
+print("firing: \n", firing)
+print("pvectors: \n", pvectors)
+print("divisors: \n", np.transpose(divisors))
+print("presets: \n", presets)
+
 # This "cell" implements token replay "in clear". It merges the matrix-oriented
 # approach and the usual set-oriented Petri net semantics. 
 
@@ -31,8 +37,8 @@ for index in range(1,runs+1):
     file_name = sys.argv[1]
     init_time = time.time()
     
-    imarking = [1] + [0]*8
-    fmarking = [0]*8 + [1]
+    imarking = [1] + [0]*9
+    fmarking = [0]*9 + [1]
     print("Initial marking: ", imarking)
     print("final marking: ", fmarking)
     print("==================================================: " + file_name);
@@ -41,15 +47,21 @@ for index in range(1,runs+1):
     with open(file_name, 'r') as file:
         for label in file:
             print(label.strip())
-            parikh_vector = [0] * 10
+            parikh_vector = [0] * 8
             parikh_vector[mapping[label.strip()]] = 1
-        
+
             imarking_o = imarking   #imarking original
             imarking_h = np.fmin(imarking, np.ones(len(imarking), dtype=int))
+
+            print("imarking_o: ", imarking_o)
+            print("parikh: ", parikh_vector)
         
             imh_pv = np.concatenate( (imarking_h, parikh_vector) )
             req = np.transpose(np.matrix(imh_pv))
             selector  = np.matmul(enablements, req) // divisors
+    
+            # print("eneblements * req: ", np.matmul(enablements, req))
+            # print("selector: ", selector)
         
             preset = np.matrix([0] * len(imarking))
             npvector = None
@@ -68,7 +80,7 @@ for index in range(1,runs+1):
                 npvector = np.matrix(parikh_vector)
         
             newmarking = imarking.transpose() + np.matmul(matrix, npvector.transpose())
-            print("selector: ", selector.transpose(), summation, imarking)
+            print("selector: ", selector.transpose(), summation, imarking, newmarking.transpose())
         
             imarking = newmarking.transpose().tolist()[0]
         

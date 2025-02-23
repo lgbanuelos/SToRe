@@ -1,13 +1,20 @@
+#!/bin/python3
+
 import pm4py
 import re
 
-log = pm4py.read_xes('logs/BPI_Challenge_2012.xes', return_legacy_log_object=True)
+# log = pm4py.read_xes('logs/BPI_Challenge_2012.xes', return_legacy_log_object=True)
+log = pm4py.read_xes('logs/BPI_Challenge_2012.xes')
 log_df  = pm4py.convert_to_dataframe(log)
 
 unique = log_df["concept:name"].unique()
 unique_O = list(filter(lambda n: re.match("O_.*", n), unique))
 
+# print("==================================================")
+# concepts = log_df["concept:name"]
+# print("Concepts: ", concepts)
 print("==================================================")
+print("Unique: ", unique)
 print("Unique_O: ", unique_O)
 print("==================================================")
 
