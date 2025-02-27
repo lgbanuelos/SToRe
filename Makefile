@@ -1,5 +1,5 @@
-running_example_dir = data/BPI_challenge_2012/
-#=========================================================================== fiting
+running_example_dir = data/BPI_challenge_2012
+#===========================================R=============================== fiting
 run_CLR:
 	#for number in `seq 6` ; do \
 		#python3 replay_CLR.py ${running_example_dir}/trace_$$number.dat ; \
@@ -29,6 +29,13 @@ run_SEC_plus_STEP:
 		#python3 replay_SEC_plus_STEP.py ${running_example_dir}/trace_$$number.dat ; \
 	#done
 	python3 replay_SEC_plus_STEP.py ${running_example_dir}/my_running_example.dat
+
+#=========================================================================== broken
+run_CLR_all:
+	 for number in `seq 10` ; do \
+		 python3 replay_CLR.py ${running_example_dir}/output/$$number.txt; \
+	 done
+
 
 #=========================================================================== broken
 # run_CLR_broken:
