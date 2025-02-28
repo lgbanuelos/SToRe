@@ -6,7 +6,7 @@ import sys
 
 runs = 1
 
-net = json.load(open("data/running-example.json"))
+net = json.load(open("data/road_traffic_fine/rtf.json"))
 
 mapping = {}
 for n, label in net["transitons"].items():
@@ -19,7 +19,12 @@ enablements = np.matrix(net["enablements"])
 pvectors = np.matrix(net["parikh_vectors"])
 divisors = enablements.sum(axis=1)
 presets = np.matrix(net["presets"])
-presets
+
+print("matrix: \n", matrix)
+print("enablements: \n", enablements)
+print("pvectors: \n", pvectors)
+print("divisors: \n", np.transpose(divisors))
+print("presets: \n", presets)
 
 # %%
 # This "cell" implements token replay "in clear". It merges the matrix-oriented
@@ -31,8 +36,8 @@ for index in range(1,runs+1):
     file_name = sys.argv[1]
     init_time = time.time()
     
-    imarking = [1] + [0]*8
-    fmarking = [0]*8 + [1]
+    imarking = [1] + [0]*14
+    fmarking = [0]*14 + [1]
     print("Initial marking: ", imarking)
     print("final marking: ", fmarking)
     print("==================================================: " + file_name);
@@ -41,7 +46,7 @@ for index in range(1,runs+1):
     with open(file_name, 'r') as file:
         for label in file:
             print(label.strip())
-            parikh_vector = [0] * 10
+            parikh_vector = [0] * 17
             parikh_vector[mapping[label.strip()]] = 1
         
             imarking_o = imarking   #imarking original

@@ -2,9 +2,11 @@ running_example_dir = data/running_example/
 running_example_broken_dir = data/running_example_broken/
 #=========================================================================== fiting
 run_CLR:
-	for number in `seq 6` ; do \
-		python3 replay_CLR.py ${running_example_dir}/trace_$$number.dat ; \
-	done
+	#for number in `seq 6` ; do \
+		#python3 replay_CLR.py ${running_example_dir}/trace_$$number.dat ; \
+	#done
+	python3 replay_CLR.py data/road_traffic_fine/log/testing.dat
+
 
 run_CLR_plus:
 	for number in `seq 6` ; do \
